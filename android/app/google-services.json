@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "611132764098",
+    "firebase_url": "https://harajsyria-default-rtdb.firebaseio.com",
+    "project_id": "harajsyria",
+    "storage_bucket": "harajsyria.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611132764098:android:7162c22350f14b723f305b",
+        "android_client_info": {
+          "package_name": "com.haraj.syria.app.haraj_syria"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYOeaM_UT8A6NJvo2poIgozUjzTUgLFN4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
