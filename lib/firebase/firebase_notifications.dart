@@ -22,33 +22,38 @@ Future<void> setupFlutterNotifications() async {
       AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
-  const AndroidInitializationSettings initAndroid =
+  const AndroidInitializationSettings initializationSettingsAndroid =
   AndroidInitializationSettings('@mipmap/ic_launcher');
 
-  const DarwinInitializationSettings initIOS = DarwinInitializationSettings(
+  const DarwinInitializationSettings initializationSettingsIOS =
+  DarwinInitializationSettings(
     requestAlertPermission: true,
     requestBadgePermission: true,
     requestSoundPermission: true,
   );
 
-  const InitializationSettings initSettings =
-  InitializationSettings(android: initAndroid, iOS: initIOS);
+  const InitializationSettings initializationSettings =
+  InitializationSettings(
+    android: initializationSettingsAndroid,
+    iOS: initializationSettingsIOS,
+  );
 
-  await flutterLocalNotificationsPlugin.initialize(initSettings);
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
 
+  // ✅✅✅ الحل: امنع الإشعارات التلقائية
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
+    alert: false,  // غير لـ false
+    badge: false,  // غير لـ false
+    sound: false,  // غير لـ false
   );
 
   isFlutterLocalNotificationsInitialized = true;
 }
 
 void showFlutterNotification(RemoteMessage message) {
-  final notification = message.notification;
-  final android = message.notification?.android;
-  final apple = message.notification?.apple;
+  final RemoteNotification? notification = message.notification;
+  final AndroidNotification? android = message.notification?.android;
+  final AppleNotification? apple = message.notification?.apple;
 
   if (notification != null && (android != null || apple != null)) {
     flutterLocalNotificationsPlugin.show(
@@ -60,9 +65,9 @@ void showFlutterNotification(RemoteMessage message) {
           channel.id,
           channel.name,
           channelDescription: channel.description,
+          icon: '@mipmap/ic_launcher',
           importance: Importance.high,
           priority: Priority.high,
-          icon: '@mipmap/ic_launcher',
         ),
         iOS: const DarwinNotificationDetails(
           presentAlert: true,
